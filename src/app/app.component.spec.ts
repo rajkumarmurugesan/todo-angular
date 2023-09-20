@@ -1,29 +1,57 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule, FormsModule],
+      declarations: [AppComponent],
+    })
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it(`should have as title 'todo-list-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('todo-list-app');
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it(`should have todos list empty`, () => {
+    console.log(component.todos);
+    expect(component.todos).toEqual([]);
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('todo-list-app app is running!');
+    expect(compiled.querySelector('.title')?.textContent).toContain('Angular Todo List App');
   });
+
+  it('check form submit', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const fnOnSubmit = spyOn(component, 'onSubmit');
+
+    const formElement = fixture.nativeElement.querySelector('form');
+    // console.log(formElement)
+    formElement.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+
+
+    // Form input field title - add a text - 'test'
+    // Form submit -
+    // todos.length == 1
+    // document.
+
+    expect(fnOnSubmit).toHaveBeenCalled();
+    console.log(component.todos)
+    expect(component.todos.length).toBeGreaterThan(0);
+
+  });
+
 });
