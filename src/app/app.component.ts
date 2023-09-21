@@ -9,12 +9,13 @@ import { Todo } from 'src/models/todo.model';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  todos: Todo[] = []
+  todos: Todo[] = [];
+  title: string = "";
 
-  onSubmit(form: NgForm) {
-    console.log('onSubmit')
-    let todo = new Todo(Guid.create(), form.value.title, false);
+  public onSubmit(form: NgForm) {
+    let todo = new Todo(Guid.create(), this.title, false);
     this.todos.push(todo);
+    this.title = "";
     form.resetForm();
   }
 

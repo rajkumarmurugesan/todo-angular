@@ -1,12 +1,12 @@
 <div class="container">
   <h1 class="title">Angular Todo List App</h1>
   <hr>
-  <form class="todo-form" #f="ngForm" name="todo-form" (ngSubmit)="onSubmit(f)">
+  <form class="todo-form" #f="ngForm" name="todo-form">
     <div class="row">
       <div class="input-field col s9">
         <input type="text" name="title" id="title" ngModel>
         <label for="title">Enter Task</label>
-        <!-- <input id="button1" type="button" hidden=true (click)="onSubmit(f)" ngModel> -->
+        <input id="button1" type="button" hidden=true (click)="onSubmit(f)" name="submitBn">
       </div>
     </div>
   </form>
